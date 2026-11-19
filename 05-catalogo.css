@@ -1,0 +1,55 @@
+/* ==========================================================
+   05-catalogo.css
+   Barberos, filtros y tarjetas de cada corte (con su foto
+   y tipo de pelo).
+   ========================================================== */
+
+/* --- Profesionales (avatares) --- */
+.profesionales{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.profesional{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:70px;padding:8px 10px;border-radius:12px;font-size:14px;transition:background .15s}
+.profesional:hover{background:var(--color-suave)}
+.profesional__avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:18px;font-weight:600;border:3px solid transparent}
+.profesional[aria-pressed="true"]{background:var(--color-acento-suave);font-weight:600}
+.profesional[aria-pressed="true"] .profesional__avatar{border-color:#fff;box-shadow:0 0 0 3px var(--color-acento)}
+
+/* --- Filtros del catálogo --- */
+.filtros{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:10px;margin-bottom:14px}
+.filtros__chips{grid-column:1/-1;display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.filtro{flex:none;padding:8px 16px;border-radius:999px;border:1.5px solid var(--color-borde);background:#fff;font-size:14px;transition:all .15s}
+.filtro:hover{border-color:var(--color-oscuro)}
+.filtro[aria-pressed="true"]{background:var(--color-oscuro);border-color:var(--color-oscuro);color:#fff}
+
+/* --- Rejilla de tarjetas --- */
+.catalogo{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.catalogo__vacio{grid-column:1/-1;padding:40px 12px;text-align:center;color:var(--color-texto-suave);background:var(--color-suave);border-radius:10px}
+
+/* --- Tarjeta de un corte --- */
+.tarjeta-corte{
+  position:relative;display:flex;flex-direction:column;overflow:hidden;
+  background:#8d7979;border:1.5px solid var(--color-oscuro);border-radius:10px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.tarjeta-corte--elegida{border-color:var(--color-acento);box-shadow:0 0 0 3px rgba(124,75,214,.22)}
+.tarjeta-corte__etiqueta{position:absolute;top:0;left:0;z-index:1;padding:4px 12px;border-radius:0 0 10px 0;background:var(--color-oscuro);color:#fff;font-size:11.5px}
+.tarjeta-corte__foto{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center top;background:var(--color-suave)}
+.tarjeta-corte__foto--vacia{display:grid;place-items:center;font-size:52px;background:var(--cita-extra)}
+.tarjeta-corte__cuerpo{flex:1;display:flex;flex-direction:column;gap:6px;padding:12px 14px 14px}
+.tarjeta-corte__nombre{font-size:15px;font-weight:600;line-height:1.3}
+.tarjeta-corte__pastillas{display:flex;flex-wrap:wrap;gap:6px}
+.tarjeta-corte__detalle{font-size:13px;color:var(--color-texto-suave)}
+.tarjeta-corte__precio{font-size:17px;font-weight:600}
+.tarjeta-corte__precio s{margin-left:8px;font-size:13px;font-weight:400;color:var(--color-texto-suave)}
+.tarjeta-corte__descripcion{flex:1;font-size:13px;color:var(--color-texto-suave)}
+.tarjeta-corte__boton{margin-top:8px;padding:10px 14px;border-radius:8px;background:var(--color-oscuro);color:#fff;font-size:14px;transition:background .15s}
+.tarjeta-corte__boton:hover{background:var(--color-oscuro-2)}
+.tarjeta-corte__boton[aria-pressed="true"]{background:var(--color-acento)}
+
+/* --- Barra que aparece abajo al elegir un servicio --- */
+.barra-seleccion{
+  position:sticky;bottom:12px;z-index:10;margin-top:14px;padding:12px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--color-oscuro);color:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+.barra-seleccion--oculta{display:none}
+.barra-seleccion__nombre{display:block;font-weight:600}
+.barra-seleccion__detalle{display:block;font-size:13px;opacity:.75}

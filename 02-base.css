@@ -1,0 +1,57 @@
+
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--fuente);font-size:15px;line-height:1.5;
+  color:var(--color-texto);background:var(--color-fondo);
+}
+body.sin-scroll{overflow:hidden}          
+
+img{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--color-acento);outline-offset:2px}
+h2{font-size:18px;font-weight:600}
+
+[hidden]{display:none!important}           /* el atributo hidden siempre oculta */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+
+.boton{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 18px;border-radius:10px;font-weight:600;
+  transition:background .15s,border-color .15s;
+}
+.boton--oscuro{background:var(--color-oscuro);color:#fff}
+.boton--oscuro:hover{background:var(--color-oscuro-2)}
+.boton--claro{background:#fff;color:var(--color-oscuro)}
+.boton--claro:hover{background:var(--color-acento-suave)}
+.boton--acento{background:var(--color-acento);color:#fff}
+.boton--acento:hover{background:#6a3cc0}
+.boton--borde{background:#fff;border:1.5px solid var(--color-borde)}
+.boton--borde:hover{border-color:var(--color-oscuro)}
+.boton--peligro{background:var(--color-error);color:#fff}
+.boton--bloque{width:100%;padding:15px;font-size:16px}
+
+/* --- Pastillas (etiquetas pequeñas) --- */
+.pastilla{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--color-suave);font-size:12px;color:var(--color-texto-suave)}
+.pastilla--pelo{background:var(--color-acento-suave);color:#5a35a5}
+
+.control{
+  width:100%;min-height:44px;padding:10px 12px;background:#fff;
+  border:1.5px solid var(--color-borde);border-radius:8px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.control:focus{outline:none;border-color:var(--color-acento);box-shadow:0 0 0 3px rgba(124,75,214,.18)}
+select.control{
+  appearance:none;-webkit-appearance:none;padding-right:36px;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%235d6873' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+}
+textarea.control{min-height:84px;resize:vertical}
+
+
+.mensaje{display:none;padding:12px 14px;border-radius:8px;font-size:14px}
+.mensaje--error{display:block;background:var(--color-error-suave);color:var(--color-error)}
+.mensaje--ok{display:block;background:var(--color-ok-suave);color:var(--color-ok)}

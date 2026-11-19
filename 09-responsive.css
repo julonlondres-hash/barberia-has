@@ -1,0 +1,47 @@
+
+
+/* scroll */
+@media (min-width:901px){
+  .agenda{position:sticky;top:calc(var(--alto-encabezado) + 12px)}
+}
+
+/*  adptable para Tablet */
+@media (max-width:900px){
+  .dos-columnas{grid-template-columns:1fr}
+  .vista{padding:20px;border-radius:22px}
+  .encabezado__fecha{display:none}
+  .config{grid-template-columns:1fr}
+}
+
+/* adaptbl3 Celular */
+@media (max-width:560px){
+  .pagina{padding:12px 8px 40px}
+  .vista{padding:14px;border-radius:18px}
+  .encabezado{padding:10px 12px 16px;gap:10px}
+  .encabezado__boton-texto{display:none}
+  .encabezado__nombre{font-size:17px}
+  .portada{gap:14px;padding:16px}
+  .portada .logo--grande{width:64px;height:64px;font-size:22px;border-width:3px}
+  .portada__texto{min-width:0}
+  .portada__titulo{font-size:21px}
+  .portada__descripcion{font-size:13.5px}
+  .portada__datos{flex-basis:100%}
+  .dato{flex:1;min-width:0;padding:10px 12px}
+  .dato__valor{font-size:17px}
+  .filtros{grid-template-columns:1fr}
+  .catalogo{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .tarjeta-corte__cuerpo{padding:10px}
+  .tarjeta-corte__descripcion{display:none}
+  .tarjeta-corte__boton{padding:9px 6px;font-size:13px}
+  .formulario__rejilla{grid-template-columns:1fr}
+  .formulario__bloque{padding:16px}
+  .formulario__envio{padding:16px}
+  .resumen{margin:0 16px 14px}
+  .documento{grid-template-columns:96px minmax(0,1fr)}
+  .barra-seleccion{flex-direction:column;align-items:stretch;text-align:center}
+}
+
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important}
+}

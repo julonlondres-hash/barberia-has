@@ -1,0 +1,40 @@
+/* ==========================================================
+   07-agenda.css
+   El panel oscuro tipo app de celular (semana + citas del día)
+   y la tarjeta de color de cada cita (.cita), que también se
+   usa en la vista "Citas programadas".
+   ========================================================== */
+.agenda{min-width:0;padding:16px;border-radius:32px;background:var(--color-oscuro);color:#fff}
+.agenda__cabecera{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 12px}
+.agenda__mes{font-weight:500}
+.agenda__flecha{width:38px;height:38px;border-radius:10px;color:#fff;font-size:22px}
+.agenda__flecha:hover{background:var(--color-oscuro-2)}
+.agenda__semana{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding-bottom:14px;text-align:center;font-size:12px;color:#b8c0c8}
+.agenda__dia{display:grid;gap:4px;padding:6px 0;border-radius:10px;color:inherit}
+.agenda__numero{display:block;width:32px;height:32px;margin:0 auto;border-radius:50%;line-height:32px;font-size:13.5px;font-weight:500;color:#aab3bb}
+.agenda__dia[aria-pressed="true"] .agenda__numero{background:#4d5864;color:#fff}
+.agenda__dia--hoy .agenda__numero{box-shadow:inset 0 0 0 1.5px var(--color-acento);color:#fff}
+.agenda__lista{min-height:320px;max-height:640px;overflow:auto;padding:16px;border-radius:20px;background:#fff;color:var(--color-texto)}
+.agenda__titulo{margin-bottom:12px;font-size:13px;color:var(--color-texto-suave)}
+.agenda__vacia{padding:56px 12px;text-align:center;font-size:14px;color:var(--color-texto-suave)}
+.agenda__nueva{
+  display:block;width:54px;height:54px;margin:14px 0 0 auto;border-radius:50%;
+  background:var(--color-acento);color:#fff;font-size:30px;line-height:1;
+  box-shadow:0 6px 16px rgba(124,75,214,.45);
+}
+
+/* --- Tarjeta de una cita (el color lo pone el JS según el servicio) --- */
+.cita{position:relative;margin-bottom:10px;padding:12px 14px;border-radius:10px;font-size:14px;color:var(--color-texto)}
+.cita__hora{display:block;font-size:12.5px;opacity:.8}
+.cita__cliente{display:block;padding-right:34px;font-size:15px}
+.cita__servicio{display:block}
+.cita__barbero{display:block;margin-top:2px;font-size:12.5px;opacity:.8}
+.cita__detalle{margin-top:8px;font-size:13px}
+.cita__detalle summary{cursor:pointer;font-weight:500;list-style:none}
+.cita__detalle summary::-webkit-details-marker{display:none}
+.cita__detalle summary::after{content:" ▾"}
+.cita__datos{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin-top:6px}
+.cita__datos dt{opacity:.7}
+.cita__datos dd{word-break:break-word}
+.cita__borrar{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.6);font-size:14px}
+.cita__borrar:hover{background:#fff;color:var(--color-error)}

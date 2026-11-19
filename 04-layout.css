@@ -1,0 +1,18 @@
+/* ==========================================================
+   04-layout.css
+   La estructura de la página: ancho máximo, las "vistas"
+   (cada opción del menú) y la rejilla de dos columnas.
+   ========================================================== */
+.pagina{max-width:1240px;margin:0 auto;padding:20px 16px 48px}
+
+/* Cada opción del menú es una .vista; solo una se ve a la vez */
+.vista{background:var(--color-tarjeta);border-radius:var(--radio-grande);padding:28px;box-shadow:var(--sombra)}
+.vista__titulo{font-size:20px;margin-bottom:4px}
+.vista__subtitulo{color:var(--color-texto-suave);margin-bottom:18px}
+
+/* Izquierda: reservar / Derecha: agenda */
+.dos-columnas{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
+.columna-principal{min-width:0}
+
+/* Barra gris que separa secciones */
+.barra-seccion{background:var(--color-suave);border-radius:8px;padding:10px 14px;font-weight:600;margin:28px 0 14px}

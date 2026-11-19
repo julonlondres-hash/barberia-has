@@ -1,0 +1,44 @@
+
+:root{
+  /* --- Colores base --- */
+  --color-fondo:#eef0f3;
+  --color-tarjeta:#ffffff;
+  --color-texto:#27303a;
+  --color-texto-suave:#5d6873;
+  --color-borde:#d8dde2;
+  --color-suave:#f3f5f7;
+
+  /* --- Colores de marca --- */
+  --color-oscuro:#27303a;
+  --color-oscuro-2:#37424e;
+  --color-acento:#7c4bd6;
+  --color-acento-suave:#f1ebfc;
+
+  /* --- Estados (error / correcto) --- */
+  --color-error:#c0392b;
+  --color-error-suave:#fdecea;
+  --color-ok:#157a58;
+  --color-ok-suave:#e3f8f0;
+
+  /* --- Color de la cita según el tipo de servicio --- */
+  --cita-fade:#b9e977;
+  --cita-taper:#a3d6f6;
+  --cita-crop:#f6bdf4;
+  --cita-buzz:#cdb8f5;
+  --cita-extra:#eec05a;
+
+  /* --- Medidas --- */
+  --radio:12px;
+  --radio-grande:28px;
+  --alto-encabezado:78px;
+  --sombra:0 12px 40px rgba(30,40,50,.08);
+
+  /* --- Tipografía --- */
+  --fuente:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  --fuente-logo:Georgia,"Times New Roman",serif;
+}
+
+h1 {
+  color: #157a58;
+}
+

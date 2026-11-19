@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barbería Profesional · Citas</title>
+
+  <!-- Diseño del Sistema -->
+  <link rel="stylesheet" href="01-variables.css">
+  <link rel="stylesheet" href="02-base.css">
+  <link rel="stylesheet" href="03-encabezado.css">
+  <link rel="stylesheet" href="04-layout.css">
+  <link rel="stylesheet" href="05-catalogo.css">
+  <link rel="stylesheet" href="06-formulario.css">
+  <link rel="stylesheet" href="07-agenda.css">
+  <link rel="stylesheet" href="08-vistas.css">
+  <link rel="stylesheet" href="09-responsive.css">
+</head>
+<body>
+
+  <!-ENCABEZAD-->
+  <header class="encabezado">
+    <button class="encabezado__menu" id="btnMenu" type="button"
+            aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+      <span class="encabezado__linea"></span>
+      <span class="encabezado__linea"></span>
+      <span class="encabezado__linea"></span>
+    </button>
+
+    <div class="encabezado__marca">
+      <div class="logo js-logo" aria-hidden="true"></div>
+      <div>
+        <h1 class="encabezado__nombre js-nombre">Barbería Pro</h1>
+        <p class="encabezado__lema">Citas y horarios</p>
+      </div>
+    </div>
+
+    <div class="encabezado__derecha">
+      <span class="encabezado__fecha" id="fechaHoy"></span>
+      <button class="boton boton--claro" id="btnNueva" type="button">
+        <span aria-hidden="true">+</span><span class="encabezado__boton-texto">Nueva cita</span>
+      </button>
+    </div>
+    <div class="encabezado__poste" aria-hidden="true"></div>
+  </header>
+
+  <!-- ===================== MENÚ HAMBURGUESA ===================== -->
+  <div class="fondo-menu" id="fondoMenu" hidden></div>
+  <nav class="menu" id="menu" aria-label="Menú principal">
+    <div class="menu__cabecera">
+      <div class="logo js-logo" aria-hidden="true"></div>
+      <span class="menu__nombre js-nombre">Barbería Pro</span>
+      <button class="menu__cerrar" id="cerrarMenu" type="button" aria-label="Cerrar menú">✕</button>
+    </div>
+    <ul class="menu__lista">
+      <li><button class="menu__enlace" type="button" data-vista="agendar"><span class="menu__icono" aria-hidden="true">✂</span>Agendar cita</button></li>
+      <li><button class="menu__enlace" type="button" data-vista="mis-citas"><span class="menu__icono" aria-hidden="true">📋</span>Mis citas</button></li>
+      <li><button class="menu__enlace" type="button" data-vista="citas" hidden><span class="menu__icono" aria-hidden="true">📅</span>Citas programadas</button></li>
+      <li><button class="menu__enlace" type="button" data-vista="clientes" hidden><span class="menu__icono" aria-hidden="true">👥</span>Clientes</button></li>
+      <li><button class="menu__enlace" type="button" data-vista="config" hidden><span class="menu__icono" aria-hidden="true">⚙</span>Configuración</button></li>
+    </ul>
+    <div class="menu__admin" style="padding:12px 16px;border-top:1px solid rgba(255,255,255,.1);">
+      <span id="indicadorAdmin" hidden style="display:block;font-size:.85rem;opacity:.85;margin-bottom:8px;"></span>
+      <button class="boton boton--claro" id="btnLoginAdmin" type="button" style="width:100%;margin-bottom:6px;">Entrar como admin</button>
+      <button class="boton boton--peligro" id="btnLogoutAdmin" type="button" hidden style="width:100%;">Cerrar sesión admin</button>
+    </div>
+    <p class="menu__pie">Sistema de citas · Barbería</p>
+  </nav>
+
+  <main class="pagina">
+
+    <!-- ===================== PORTADA ===================== -->
+    <section class="portada">
+      <div class="logo logo--grande js-logo" aria-hidden="true"></div>
+      <div class="portada__texto">
+        <h2 class="portada__titulo">Reserva tu cita</h2>
+        <p class="portada__descripcion">Lunes a sábado, de 8:00 AM a 11:00 PM. Elige tu barbero, corte y horario.</p>
+      </div>
+      <div class="portada__datos">
+        <div class="dato"><div class="dato__valor" id="datoHoy">0</div><div class="dato__etiqueta">Citas hoy</div></div>
+        <div class="dato"><div class="dato__valor" id="datoProxima">Sin citas</div><div class="dato__etiqueta">Próxima cita</div></div>
+        <div class="dato"><div class="dato__valor" id="datoBarberos">4</div><div class="dato__etiqueta">Profesionales</div></div>
+      </div>
+    </section>
+
+    <!-- 5id8 AGENDAR -->
+    <section class="vista" id="vista-agendar" data-vista="agendar">
+      <div class="dos-columnas">
+
+        <div class="columna-principal">
+          <h2 class="vista__titulo">Agenda con un profesional en particular:</h2>
+          <div class="profesionales" id="profesionales"></div>
+
+          <div class="barra-seccion">Catálogo de cortes y servicios</div>
+          <div class="filtros">
+            <label><span class="sr-only">Buscar corte</span>
+              <input class="control" id="buscar" type="search" placeholder="Buscar corte: fade, rizado, barba..." autocomplete="off"></label>
+            <label><span class="sr-only">Tipo de pelo</span>
+              <select class="control" id="filtroPelo"></select></label>
+            <div class="filtros__chips" id="chipsGrupo" role="group" aria-label="Tipo de corte"></div>
+          </div>
+          <div class="catalogo" id="catalogo"></div>
+
+          <div class="barra-seleccion" id="barraSeleccion" hidden>
+            <div>
+              <span class="barra-seleccion__nombre" id="selNombre"></span>
+              <span class="barra-seleccion__detalle" id="selDetalle"></span>
+            </div>
+            <button class="boton boton--acento" id="btnContinuar" type="button">Continuar con la cita</button>
+          </div>
+
+          <div class="barra-seccion" id="reservar">Registrar cita</div>
+
+          <form class="formulario" id="formCita" novalidate>
+
+            <!-- Paso 1: datos del cliente -->
+            <fieldset class="formulario__bloque">
+              <legend class="sr-only">Datos del cliente</legend>
+              <div class="formulario__titulo"><span class="formulario__numero">1</span>Datos del cliente</div>
+              <div class="formulario__rejilla">
+                <label class="campo" data-f="nombres"><span class="campo__etiqueta">Nombres<em>*</em></span>
+                  <input class="control" id="nombres" type="text" autocomplete="given-name" placeholder="Ej: Rodrigo">
+                  <span class="campo__error">Escribe los nombres del cliente.</span></label>
+                <label class="campo" data-f="apellidos"><span class="campo__etiqueta">Apellidos<em>*</em></span>
+                  <input class="control" id="apellidos" type="text" autocomplete="family-name" placeholder="Ej: Torres Gómez">
+                  <span class="campo__error">Escribe los apellidos del cliente.</span></label>
+
+                <div class="campo" data-f="doc"><span class="campo__etiqueta">Documento de identidad<em>*</em></span>
+                  <div class="documento">
+                    <select class="control" id="tipoDoc" aria-label="Tipo de documento">
+                      <option>id</option><option>TI</option><option>CE</option><option>Pasaporte</option>
+                    </select>
+                    <input class="control" id="doc" type="text" inputmode="numeric" placeholder="Número" autocomplete="off">
+                  </div>
+                  <span class="campo__error">Escribe un documento válido (mínimo 5 dígitos).</span></div>
+                <label class="campo" data-f="nacimiento"><span class="campo__etiqueta">Fecha de nacimiento<small>(opcional)</small></span>
+                  <input class="control" id="nacimiento" type="date">
+                  <span class="campo__error">La fecha no puede ser futura.</span></label>
+
+                <label class="campo" data-f="tel"><span class="campo__etiqueta">Teléfono / WhatsApp<em>*</em></span>
+                  <input class="control" id="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej: 300 123 4567">
+                  <span class="campo__error">Escribe un teléfono válido (mínimo 7 dígitos).</span></label>
+                <label class="campo" data-f="correo"><span class="campo__etiqueta">Correo electrónico<small>(opcional)</small></span>
+                  <input class="control" id="correo" type="email" autocomplete="email" placeholder="correo@ejemplo.com">
+                  <span class="campo__error">El correo no tiene un formato válido.</span></label>
+
+                <label class="campo campo--completo"><span class="campo__etiqueta">Dirección o barrio<small>(opcional)</small></span>
+                  <input class="control" id="direccion" type="text" autocomplete="street-address" placeholder="Ej: Calle 10 #20-30, Centro"></label>
+                <label class="campo campo--completo"><span class="campo__etiqueta">¿Cómo nos conoció?<small>(opcional)</small></span>
+                  <select class="control" id="origen">
+                    <option value="">Seleccionar</option><option>Recomendación</option><option>Instagram</option>
+                    <option>Facebook</option><option>Pasó por el local</option><option>Otro</option>
+                  </select></label>
+              </div>
+            </fieldset>
+
+            <!--servicio y horario barbería -->
+            <fieldset class="formulario__bloque">
+              <legend class="sr-only">Servicio y horario</legend>
+              <div class="formulario__titulo"><span class="formulario__numero">2</span>Servicio y horario</div>
+              <div class="formulario__rejilla">
+                <label class="campo"><span class="campo__etiqueta">Profesional<em>*</em></span>
+                  <select class="control" id="selBarbero"></select></label>
+                <label class="campo" data-f="servicio"><span class="campo__etiqueta">Servicio<em>*</em></span>
+                  <select class="control" id="selServicio"></select>
+                  <span class="campo__error">Elige un servicio.</span></label>
+                <label class="campo campo--completo" data-f="fecha"><span class="campo__etiqueta">Fecha<em>*</em></span>
+                  <input class="control" id="fecha" type="date">
+                  <span class="campo__error">Elige una fecha desde hoy.</span></label>
+                <div class="campo campo--completo" data-f="hora"><span class="campo__etiqueta">Hora<em>*</em></span>
+                  <div class="aviso" id="avisoHoras"></div>
+                  <div class="horas" id="horas"></div>
+                  <div class="leyenda">
+                    <span><i style="background:#fff;border:1.5px solid var(--color-borde)"></i>Libre</span>
+                    <span><i style="background:var(--color-acento)"></i>Elegida</span>
+                    <span><i style="background:#eceff2;border:1.5px dashed #9aa3ab"></i>Ocupada</span>
+                  </div>
+                  <span class="campo__error">Elige una hora libre.</span></div>
+              </div>
+            </fieldset>
+
+          
+            <fieldset class="formulario__bloque">
+              <legend class="sr-only">Pago y observaciones</legend>
+              <div class="formulario__titulo"><span class="formulario__numero">3</span>Pago y observaciones</div>
+              <div class="formulario__rejilla">
+                <div class="campo campo--completo"><span class="campo__etiqueta">Método de pago</span>
+                  <div class="opciones" role="radiogroup" aria-label="Método de pago">
+                    <label class="opcion"><input type="radio" name="pago" value="Efectivo" checked><span>Efectivo</span></label>
+                    <label class="opcion"><input type="radio" name="pago" value="Transferencia"><span>Transferencia</span></label>
+                    <label class="opcion"><input type="radio" name="pago" value="Tarjeta"><span>Tarjeta</span></label>
+                    <label class="opcion"><input type="radio" name="pago" value="En línea"><span>En línea (con descuento)</span></label>
+                  </div>
+                </div>
+                <label class="campo campo--completo"><span class="campo__etiqueta">Notas del cliente<small>(opcional)</small></span>
+                  <textarea class="control" id="notas" placeholder="Ej: prefiere degradado bajo, alergia a ciertos productos..."></textarea></label>
+                <label class="casilla"><input type="checkbox" id="recordatorio" checked>
+                  <span>Enviar recordatorio de la cita por WhatsApp o correo.</span></label>
+                <label class="casilla" data-f="acepta"><input type="checkbox" id="acepta">
+                  <span>El cliente autoriza el uso de sus datos para gestionar la cita. *</span></label>
+              </div>
+            </fieldset>
+
+            <div class="resumen" id="resumen"></div>
+            <div class="formulario__envio">
+              <div class="mensaje" id="mensaje" role="alert"></div>
+              <button class="boton boton--oscuro boton--bloque" type="submit">Confirmar cita</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Panel de agenda (derecha) -->
+        <aside class="agenda" aria-label="Agenda de citas">
+          <div class="agenda__cabecera">
+            <button class="agenda__flecha" id="semanaAnterior" type="button" aria-label="Semana anterior">‹</button>
+            <strong class="agenda__mes" id="agendaMes"></strong>
+            <button class="agenda__flecha" id="semanaSiguiente" type="button" aria-label="Semana siguiente">›</button>
+          </div>
+          <div class="agenda__semana" id="agendaSemana"></div>
+          <div class="agenda__lista">
+            <div class="agenda__titulo" id="agendaTitulo"></div>
+            <div id="agendaCitas"></div>
+          </div>
+          <button class="agenda__nueva" id="btnNuevaAgenda" type="button" aria-label="Nueva cita">+</button>
+        </aside>
+
+      </div>
+    </section>
+
+  
+    <section class="vista" id="vista-mis-citas" data-vista="mis-citas" hidden>
+      <h2 class="vista__titulo">Mis citas</h2>
+      <p class="vista__subtitulo">Consulta las citas que has reservado con tu documento o teléfono.</p>
+      <div class="filtros" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <label class="campo"><span class="campo__etiqueta">Documento</span>
+          <input class="control" id="buscarMisDoc" type="text" inputmode="numeric" placeholder="Número de documento" autocomplete="off"></label>
+        <label class="campo"><span class="campo__etiqueta">Teléfono</span>
+          <input class="control" id="buscarMisTel" type="text" inputmode="tel" placeholder="Teléfono" autocomplete="off"></label>
+        <div class="campo" style="align-self:flex-end;">
+          <button class="boton" id="btnBuscarMisCitas" type="button">Buscar</button>
+        </div>
+      </div>
+      <div class="lista-citas" id="listaMisCitas">
+        <div class="vacio">Escribe tu documento o teléfono y pulsa Buscar.</div>
+      </div>
+    </section>
+
+    <section class="vista" id="vista-citas" data-vista="citas" hidden>
+      <h2 class="vista__titulo">Citas programadas</h2>
+      <p class="vista__subtitulo">Todas las citas registradas, ordenadas por fecha y hora.</p>
+      <div class="herramientas">
+        <label class="campo"><span class="campo__etiqueta">Profesional</span>
+          <select class="control" id="citasBarbero"></select></label>
+        <label class="campo"><span class="campo__etiqueta">Mostrar</span>
+          <select class="control" id="citasModo">
+            <option value="proximas">Próximas</option>
+            <option value="todas">Todas</option>
+            <option value="pasadas">Pasadas</option>
+          </select></label>
+      </div>
+      <div class="lista-citas" id="listaCitas"></div>
+    </section>
+
+    <!-- yy CLIENTES -->
+    <section class="vista" id="vista-clientes" data-vista="clientes" hidden>
+      <h2 class="vista__titulo">Clientes</h2>
+      <p class="vista__subtitulo">Se crean automáticamente con cada cita registrada.</p>
+      <div class="herramientas">
+        <label class="campo"><span class="campo__etiqueta">Buscar cliente</span>
+          <input class="control" id="buscarCliente" type="search" placeholder="Nombre, documento o teléfono" autocomplete="off"></label>
+      </div>
+      <div class="clientes" id="listaClientes"></div>
+    </section>
+
+    <!-- CONFIGURACIÓN  -->
+    <section class="vista" id="vista-config" data-vista="config" hidden>
+      <h2 class="vista__titulo">Configuración</h2>
+      <p class="vista__subtitulo">Personaliza el nombre y el logo de la barbería.</p>
+      <div class="config">
+        <form class="config__formulario" id="formConfig" novalidate>
+          <label class="campo"><span class="campo__etiqueta">Nombre de la barbería</span>
+            <input class="control" id="cfgNombre" type="text" maxlength="40" placeholder="Barbería Pro"></label>
+          <label class="campo"><span class="campo__etiqueta">URL del logo</span>
+            <input class="control" id="cfgLogo" type="url" placeholder="https://ejemplo.com/logo.png" autocomplete="off">
+            <span class="campo__ayuda">Pega el enlace de una imagen (PNG, JPG o SVG). También sirve una ruta del proyecto, como img/logo.png. Si la imagen no carga, se muestran las iniciales.</span></label>
+          <div class="config__acciones">
+            <button class="boton boton--oscuro" type="submit">Guardar cambios</button>
+            <button class="boton boton--borde" id="cfgQuitar" type="button">Quitar logo</button>
+          </div>
+          <div class="mensaje" id="cfgMsg" role="status"></div>
+        </form>
+        <div class="config__previa">
+          <span>Vista previa</span>
+          <div class="logo logo--grande logo--oscuro" id="cfgPrevia"></div>
+          <strong id="cfgPreviaNombre"></strong>
+        </div>
+      </div>
+
+      <div class="zona-peligro">
+        <h3>Zona de cuidado</h3>
+        <p>Borra todas las citas guardadas en este navegador. No se puede deshacer.</p>
+        <button class="boton boton--peligro" id="btnBorrarCitas" type="button">Borrar todas las citas</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="datos.js"></script>
+  <script src="utilidades.js"></script>
+  <script src="almacenamiento.js"></script>
+  <script src="estado.js"></script>
+  <script src="disponibilidad.js"></script>
+  <script src="menu.js"></script>
+  <script src="catalogo.js"></script>
+  <script src="formulario.js"></script>
+  <script src="agenda.js"></script>
+  <script src="vistas.js"></script>
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
